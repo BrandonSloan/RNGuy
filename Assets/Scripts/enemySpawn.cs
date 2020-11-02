@@ -10,13 +10,7 @@ public class enemySpawn : MonoBehaviour
     Vector2 spawnLocation;
     public int numEnemies;
     private int activeEnemies = 0;
-
-    void start()
-    {
-        
-    }
-
-    void Update()
+    private void Update()
     {
         while (activeEnemies <= numEnemies)
         {
@@ -25,6 +19,6 @@ public class enemySpawn : MonoBehaviour
             spawnLocation = new Vector2(xPos, yPos);
             Instantiate(enemy, spawnLocation, Quaternion.identity);
             activeEnemies++;
-        }  
+        }
     }
 }

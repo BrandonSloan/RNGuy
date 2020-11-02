@@ -37,6 +37,10 @@ public class Player_Shooting : MonoBehaviour
             Instantiate(projectile, position, shotAngle);
         }
     }
+    /// <summary>
+    /// This calculates the angle of the shot
+    /// </summary>
+    /// <returns>The angle of the shot</returns>
     private Quaternion calcShotAngle()
     {
         Vector2 mouseScreen = Input.mousePosition;

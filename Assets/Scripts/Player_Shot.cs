@@ -38,6 +38,6 @@ public class Player_Shot : MonoBehaviour
     /// </summary>
     private void BulletDepawn()
     {
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 0.75f);
     }
 }
