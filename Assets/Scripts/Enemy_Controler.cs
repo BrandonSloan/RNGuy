@@ -32,6 +32,10 @@ public class Enemy_Controler : MonoBehaviour
     /// </summary>
     public GameObject spawn;
     /// <summary>
+    /// Where the enemy aims
+    /// </summary>
+    public GameObject target;
+    /// <summary>
     /// The player game object
     /// </summary>
     private GameObject player;
@@ -82,8 +86,8 @@ public class Enemy_Controler : MonoBehaviour
     }
     void shootAtPlayer()
     {
-        float angle = Mathf.Atan2(player.transform.position.y - spawn.transform.position.y,
-            player.transform.position.x - spawn.transform.position.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(target.transform.position.y - spawn.transform.position.y,
+            target.transform.position.x - spawn.transform.position.x) * Mathf.Rad2Deg;
         Instantiate(shot, spawn.transform.position, Quaternion.Euler(0, 0, angle - 90));
     }
 }
