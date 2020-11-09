@@ -5,6 +5,23 @@ using UnityEngine;
 //Date : 10/23/2020
 public class Player_Controler : MonoBehaviour
 {
+    public HealthBar healthBar;
+    /// <summary>
+    /// minimum max health for the player
+    /// </summary>
+    public int minMaxHealth = 5;
+    /// <summary>
+    /// maximum max health for the player
+    /// </summary>
+    public int maxMaxHealth = 20;
+    /// <summary>
+    /// maximum max health for the player
+    /// </summary>
+    public int maxHealth;
+    /// <summary>
+    /// current health for the player
+    /// </summary>
+    public int currentHealth;
     /// <summary>
     /// minimum speed for the player
     /// </summary>
@@ -40,9 +57,41 @@ public class Player_Controler : MonoBehaviour
     {
         //used to randomly generate speed
         speed = Random.Range(minSpeed, maxSpeed);
+        maxHealth = Random.Range(minMaxHealth, maxMaxHealth);
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
         baseDamage = Random.Range(minBaseDamage, maxBaseDamage);
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy_Bullet")
+        {
+
+            currentHealth -= 1;
+            Destroy(collision.gameObject);
+            healthBar.SetHealth(currentHealth);
+        }
+    }
+
+    //void takeDamage(Collider2D collision)
+    //{
+    //    if (collision.tag == "Enemy_Bullet")
+    //    {
+            
+    //        currentHealth -= 1;
+    //        Destroy(collision.gameObject);
+    //        healthBar.SetHealth(currentHealth);
+    //    }
+    //}
+
+    //void TakeDamage(int damage)
+    //{
+    //    if (currentHealth !=0)
+    //    currentHealth -= damage;
+    //    healthBar.SetHealth(currentHealth);
+    //}
 
     // Update is called once per frame
     void FixedUpdate()
