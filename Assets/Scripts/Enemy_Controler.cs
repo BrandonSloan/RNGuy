@@ -16,6 +16,10 @@ public class Enemy_Controler : MonoBehaviour
     /// </summary>
     public GameObject enemy;
     /// <summary>
+    /// The score given for killing the enemy
+    /// </summary>
+    public int score_Value = 0;
+    /// <summary>
     /// Tells if the enemy can shoot
     /// </summary>
     public bool can_Shoot = false;
@@ -68,6 +72,7 @@ public class Enemy_Controler : MonoBehaviour
         }
         if (enemy_Health <= 0)
         {
+            //addpoints
             Destroy(enemy);
         }
     }

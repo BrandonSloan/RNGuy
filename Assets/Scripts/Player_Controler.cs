@@ -51,6 +51,10 @@ public class Player_Controler : MonoBehaviour
     /// The rigid body of the player sprite.
     /// </summary>
     private Rigidbody2D rb2d;
+    /// <summary>
+    /// This timer is for calculating the time between contact damage
+    /// </summary>
+    private float timer = 0.0f;
     
     // Start is called before the first frame update
     void Start()
@@ -72,6 +76,15 @@ public class Player_Controler : MonoBehaviour
             currentHealth -= 1;
             Destroy(collision.gameObject);
             healthBar.SetHealth(currentHealth);
+        }
+        if(collision.tag == "Enemy")
+        {
+            if (timer >= 0.5f)
+            {
+                currentHealth -= 1;
+                healthBar.SetHealth(currentHealth);
+                timer = 0.0f;
+            }
         }
     }
 
@@ -96,6 +109,7 @@ public class Player_Controler : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        timer += Time.deltaTime;
         //movement
         Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         rb2d.MovePosition(rb2d.position + (movement * speed * Time.deltaTime));

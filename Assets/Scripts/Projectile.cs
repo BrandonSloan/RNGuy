@@ -16,9 +16,6 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// The game manager
     /// </summary>
-    //private GameManager gameManager;
-    //private EnemyHealth enemyHealth;
-    //private enviromentHealth envinroHealth;
     // Start is called before the first frame update
     void Start()
     {
