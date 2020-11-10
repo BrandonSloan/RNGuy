@@ -55,6 +55,10 @@ public class Player_Controler : MonoBehaviour
     /// This timer is for calculating the time between contact damage
     /// </summary>
     private float timer = 0.0f;
+    /// <summary>
+    /// Handles the animation of RNGuy
+    /// </summary>
+    private Animator anim;
     
     void awake()
     {
@@ -71,6 +75,7 @@ public class Player_Controler : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         baseDamage = Random.Range(minBaseDamage, maxBaseDamage);
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -100,6 +105,47 @@ public class Player_Controler : MonoBehaviour
         timer += Time.deltaTime;
         //movement
         Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //animation
+        if(movement.y < 0f)
+        {
+            anim.SetBool("Move_Forward", true);
+            anim.SetBool("Move_Backward", false);
+            anim.SetBool("Move_Right", false);
+            anim.SetBool("Move_Left", false);
+            anim.SetBool("Idle", false);
+        }
+        if(movement.y > 0f)
+        {
+            anim.SetBool("Move_Forward", false);
+            anim.SetBool("Move_Backward", true);
+            anim.SetBool("Move_Right", false);
+            anim.SetBool("Move_Left", false);
+            anim.SetBool("Idle", false);
+        }
+        if (movement.x > 0f)
+        {
+            anim.SetBool("Move_Forward", false);
+            anim.SetBool("Move_Backward", false);
+            anim.SetBool("Move_Right", true);
+            anim.SetBool("Move_Left", false);
+            anim.SetBool("Idle", false);
+        }
+        if (movement.x < 0f)
+        {
+            anim.SetBool("Move_Forward", false);
+            anim.SetBool("Move_Backward", false);
+            anim.SetBool("Move_Right", false);
+            anim.SetBool("Move_Left", true);
+            anim.SetBool("Idle", false);
+        }
+        if (movement.y == 0 && movement.x == 0)
+        {
+            anim.SetBool("Move_Forward", false);
+            anim.SetBool("Move_Backward", false);
+            anim.SetBool("Move_Right", false);
+            anim.SetBool("Move_Left", false);
+            anim.SetBool("Idle", true);
+        }
         rb2d.MovePosition(rb2d.position + (movement * speed * Time.deltaTime));
     }
     /// <summary>
