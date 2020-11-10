@@ -56,6 +56,11 @@ public class Player_Controler : MonoBehaviour
     /// </summary>
     private float timer = 0.0f;
     
+    void awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +82,7 @@ public class Player_Controler : MonoBehaviour
             Destroy(collision.gameObject);
             healthBar.SetHealth(currentHealth);
         }
+
         if(collision.tag == "Enemy")
         {
             if (timer >= 0.5f)
@@ -87,24 +93,6 @@ public class Player_Controler : MonoBehaviour
             }
         }
     }
-
-    //void takeDamage(Collider2D collision)
-    //{
-    //    if (collision.tag == "Enemy_Bullet")
-    //    {
-            
-    //        currentHealth -= 1;
-    //        Destroy(collision.gameObject);
-    //        healthBar.SetHealth(currentHealth);
-    //    }
-    //}
-
-    //void TakeDamage(int damage)
-    //{
-    //    if (currentHealth !=0)
-    //    currentHealth -= damage;
-    //    healthBar.SetHealth(currentHealth);
-    //}
 
     // Update is called once per frame
     void FixedUpdate()
