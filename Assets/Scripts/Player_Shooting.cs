@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 //Author: Blake Henderson
-//Date : 10/23/2020
+//Date : 11/10/2020
 public class Player_Shooting : MonoBehaviour
 {
     /// <summary>

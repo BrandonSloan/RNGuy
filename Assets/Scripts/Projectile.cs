@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Author: Blake Henderson
-//Date : 10/23/2020
+//Date : 11/10/2020
 public class Projectile : MonoBehaviour
 {
     /// <summary>

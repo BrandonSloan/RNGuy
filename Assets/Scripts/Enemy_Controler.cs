@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 //Author: Blake Henderson
-//Date : 11/3/2020
+//Date : 11/10/2020
 
 public class Enemy_Controler : MonoBehaviour
 {
