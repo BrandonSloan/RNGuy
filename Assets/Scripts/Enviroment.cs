@@ -25,6 +25,7 @@ public class Enviroment : MonoBehaviour
     /// the play script attached to the player
     /// </summary>
     private Player_Controler player_Script;
+    private int damagedEnvironment = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +37,17 @@ public class Enviroment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
+        if (damagedEnvironment < 1)
         {
-            cracks.SetActive(true);
-            //add points
+            if (health <= 0)
+            {
+                cracks.SetActive(true);
+                Score.scoreValue += score_Value;
+                damagedEnvironment++;
+            }
         }
     }
+
     /// <summary>
     /// Happens when the enemy hits another object
     /// </summary>

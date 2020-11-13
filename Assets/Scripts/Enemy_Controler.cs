@@ -72,7 +72,7 @@ public class Enemy_Controler : MonoBehaviour
         }
         if (enemy_Health <= 0)
         {
-            //addpoints
+            Score.scoreValue += score_Value;
             Destroy(enemy);
         }
     }

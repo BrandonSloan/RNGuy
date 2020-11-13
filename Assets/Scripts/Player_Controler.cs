@@ -5,23 +5,8 @@ using UnityEngine;
 //Date : 11/10/2020
 public class Player_Controler : MonoBehaviour
 {
-    public HealthBar healthBar;
-    /// <summary>
-    /// minimum max health for the player
-    /// </summary>
-    public int minMaxHealth = 5;
-    /// <summary>
-    /// maximum max health for the player
-    /// </summary>
-    public int maxMaxHealth = 20;
-    /// <summary>
-    /// maximum max health for the player
-    /// </summary>
-    public int maxHealth;
-    /// <summary>
-    /// current health for the player
-    /// </summary>
-    public int currentHealth;
+    public static GameManager gameManager;
+    //public GameManager gmScript;
     /// <summary>
     /// minimum speed for the player
     /// </summary>
@@ -59,20 +44,18 @@ public class Player_Controler : MonoBehaviour
     /// Handles the animation of RNGuy
     /// </summary>
     private Animator anim;
-    
-    void awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
     // Start is called before the first frame update
     void Start()
     {
+        //gameManager = GameManager.FindGameObjectWithTag("GameManager");
+        //gmScript = gameManager.GetComponent<GameManager>();
         //used to randomly generate speed
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
         speed = Random.Range(minSpeed, maxSpeed);
-        maxHealth = Random.Range(minMaxHealth, maxMaxHealth);
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
         baseDamage = Random.Range(minBaseDamage, maxBaseDamage);
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -82,18 +65,15 @@ public class Player_Controler : MonoBehaviour
     {
         if (collision.tag == "Enemy_Bullet")
         {
-
-            currentHealth -= 1;
+            gameManager.takeDamage(1);
             Destroy(collision.gameObject);
-            healthBar.SetHealth(currentHealth);
         }
 
         if(collision.tag == "Enemy")
         {
             if (timer >= 0.5f)
             {
-                currentHealth -= 1;
-                healthBar.SetHealth(currentHealth);
+                gameManager.takeDamage(1);
                 timer = 0.0f;
             }
         }

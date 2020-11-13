@@ -8,6 +8,7 @@ TagManager:
   - Destructible
   - Player_Bullet
   - Enemy_Bullet
+  - GameManager
   layers:
   - Default
   - TransparentFX

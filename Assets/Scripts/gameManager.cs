@@ -1,30 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class gameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static gameManager instance;
-
-    public int playerHealth;
-
+    public static GameManager instance;
+    public int minMaxHealth = 5;
+    public int maxMaxHealth = 20;
+    public int maxHealth;
+    public static int currentHealth;
+    public HealthBar healthBar;
     public bool playerDiedGameRestarted;
 
     void Awake()
     {
-        MakeSingleton ();
+       DontDestroyOnLoad(this.gameObject);
     }
 
-    private void MakeSingleton()
+    void Start()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        maxHealth = UnityEngine.Random.Range(minMaxHealth, maxMaxHealth);
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
+
+    public void takeDamage(int a)
+    {
+        currentHealth -= a;
+        healthBar.SetHealth(currentHealth);
     }
 }
