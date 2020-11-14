@@ -13,9 +13,6 @@ public class Projectile : MonoBehaviour
     /// The rigid body of the projectile
     /// </summary>
     private Rigidbody2D rb2d;
-    /// <summary>
-    /// The game manager
-    /// </summary>
     // Start is called before the first frame update
     void Start()
     {

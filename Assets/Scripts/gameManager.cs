@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+//Edited by Blake Henderson on 11/13/2020
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-       DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
@@ -25,10 +24,21 @@ public class GameManager : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Main_Menu");
+        }
+    }
 
     public void takeDamage(int a)
     {
         currentHealth -= a;
         healthBar.SetHealth(currentHealth);
+        if(currentHealth <= 0)
+        {
+            SceneManager.LoadScene("Main_Menu");
+        }
     }
 }

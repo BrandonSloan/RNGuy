@@ -48,9 +48,6 @@ public class Player_Controler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //gameManager = GameManager.FindGameObjectWithTag("GameManager");
-        //gmScript = gameManager.GetComponent<GameManager>();
-        //used to randomly generate speed
         if (gameManager == null)
         {
             gameManager = FindObjectOfType<GameManager>();
@@ -60,7 +57,10 @@ public class Player_Controler : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
-
+    /// <summary>
+    /// When the player bumps into another object.
+    /// </summary>
+    /// <param name="collision">The obkect the player collided with</param>
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy_Bullet")

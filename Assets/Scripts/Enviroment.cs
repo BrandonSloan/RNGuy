@@ -56,6 +56,7 @@ public class Enviroment : MonoBehaviour
     {
         if (collision.tag == "Player_Bullet")
         {
+            //Randomizes the bullet damage between 1 and 6 to replicate a six sided die.
             int bullet_Damage = ((int)Random.Range(1.0f, 6.999999f));
             health -= player_Script.getBaseDamage() * bullet_Damage;
             Destroy(collision.gameObject);

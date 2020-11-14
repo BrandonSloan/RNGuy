@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using TMPro;
 //Author: Blake Henderson
-//Date : 11/10/2020
+//Date : 11/13/2020
 
 public class Enemy_Controler : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class Enemy_Controler : MonoBehaviour
     /// </summary>
     public bool can_Shoot = false;
     /// <summary>
+    /// Determines if this enemy is a boss, and will finish the game.
+    /// </summary>
+    public bool is_Boss = false;
+    /// <summary>
     /// The time in between enemy shots
     /// </summary>
     public float shot_delay = 1.5f;
@@ -39,6 +44,18 @@ public class Enemy_Controler : MonoBehaviour
     /// Where the enemy aims
     /// </summary>
     public GameObject target;
+    /// <summary>
+    /// Used to display winning screen
+    /// </summary>
+    public GameObject win_Text_Object;
+    /// <summary>
+    /// Used to display the rank.
+    /// </summary>
+    public TextMeshProUGUI rank_Text;
+    /// <summary>
+    /// Used to display the rank
+    /// </summary>
+    public GameObject rank_Text_Object;
     /// <summary>
     /// The player game object
     /// </summary>
@@ -57,6 +74,11 @@ public class Enemy_Controler : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         player_Script = player.GetComponent<Player_Controler>();
+        if (is_Boss)
+        {
+            win_Text_Object.SetActive(false);
+            rank_Text_Object.SetActive(false);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -73,6 +95,39 @@ public class Enemy_Controler : MonoBehaviour
         if (enemy_Health <= 0)
         {
             Score.scoreValue += score_Value;
+            if (is_Boss)
+            {
+                if (Score.scoreValue >= 4000)
+                {
+                    rank_Text.text = "Rank: S+";
+                }
+                else if (Score.scoreValue >= 3500)
+                {
+                    rank_Text.text = "Rank: S";
+                }
+                else if (Score.scoreValue >= 3000)
+                {
+                    rank_Text.text = "Rank: A";
+                }
+                else if (Score.scoreValue >= 2500)
+                {
+                    rank_Text.text = "Rank: B";
+                }
+                else if (Score.scoreValue >= 2000)
+                {
+                    rank_Text.text = "Rank: C";
+                }
+                else if (Score.scoreValue >= 1500)
+                {
+                    rank_Text.text = "Rank: D";
+                }
+                else
+                {
+                    rank_Text.text = "Rank: F";
+                }
+                win_Text_Object.SetActive(true);
+                rank_Text_Object.SetActive(true);
+            }
             Destroy(enemy);
         }
     }
@@ -84,6 +139,7 @@ public class Enemy_Controler : MonoBehaviour
     {
         if(collision.tag == "Player_Bullet")
         {
+            //Randomizes the bullet damage between 1 and 6 to replicate a six sided die.
             int bullet_Damage = ((int)Random.Range(1.0f, 6.999999f));
             enemy_Health -= player_Script.getBaseDamage() * bullet_Damage;
             Destroy(collision.gameObject);
